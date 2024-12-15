@@ -22,9 +22,11 @@ class VeiculoEmpregadoFactory extends Factory
             'veiculo_id' => Veiculo::factory(),
             'empregado_id' => Empregado::factory(),
 
-            //tenho que corresponder (now e 6000) porque senão envia propostas erradas.
-            'data_inicio' => fake()->dateTimeBetween('-3 year', 'now'),
-            'data_fim' => fake()->optional()->dateTimeBetween('now', '+1 year'),
+            
+            'data_inicio' =>fake()->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s'),
+            'data_fim' => fake()->optional()->dateTimeBetween('now', '+1 year')->format('Y-m-d H:i:s'),
+
+//tenho que corresponder (now e 6000) porque senão envia propostas erradas.
             'kms_inicial' => fake()->numberBetween(0, 6000),
             'kms_final' => fake()->optional()->numberBetween(6000, 100000),
         ];
