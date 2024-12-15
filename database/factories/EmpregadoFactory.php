@@ -18,8 +18,9 @@ class EmpregadoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome' => fake()->name(),
-            'apelido' => fake()->apelido(),
+            /* name criou problemas no mysql porque faz tudo (nome, apelido, sufixo) e torna-se demasiado longo */
+            'nome' => fake()->firstName(),
+            'apelido' => fake()->lastName(),
         ];
     }
 }

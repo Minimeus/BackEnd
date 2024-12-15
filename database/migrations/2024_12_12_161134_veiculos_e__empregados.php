@@ -20,16 +20,20 @@ return new class extends Migration
             //ligacoes as duas outras tabelas : https://laravel.com/docs/11.x/migrations#column-method-foreignId
                 // The foreignId method creates an UNSIGNED BIGINT equivalent column
 
-            $table->foreignId('id_veiculo')->constrained('veiculos')->onDelete('cascade'); 
+            $table->foreignId('veiculo_id')->constrained('veiculos')->onDelete('cascade'); 
             //contrained para a chave foreign em veiculos https://laravel.com/docs/11.x/migrations#foreign-key-constraints 
             //onDelete para apagar nesta tabela quando um row é apagado noutra tabela
             
-            $table->foreignId('id_empregado')->constrained('empregados')->onDelete('cascade'); 
+            $table->foreignId('empregado_id')->constrained('empregados')->onDelete('cascade'); 
 
 
-            $table->integer('horas_de_conducao'); 
-            $table->integer('kms_antes'); 
-            $table->integer('kms_depois'); 
+
+            /* atualizado de $table->integer('horas_de_conducao'); para estas duas infos */
+            $table->dateTime('data_inicio');
+            $table->dateTime('data_fim')->nullable(); 
+
+            $table->integer('kms_inicial'); 
+            $table->integer('kms_final'); 
             $table->boolean('carro_vendido')->default(false); 
             
         });
