@@ -21,7 +21,7 @@ class VeiculoController extends Controller
         }
 
         //criar um veiculo
-        public function create(){return view('veiculos.create');}
+        public function create(){return view('veiculos.criar');}
 
 
         //Reutilisando estudante
@@ -46,7 +46,8 @@ class VeiculoController extends Controller
             $foiCompradoToInsert = $request['foi_comprado'] ?? false;
             $tipoCombustivelToInsert = $request['tipo_combustivel'];
             $corToInsert = $request['cor'];
-            $anoToInsert = $request['ano'] ?? now()->lastyear; //ano do carro, se nao meterem por default sera do ano passado ? acho que é assim que funcionam.
+            //não é lastYear é subYear
+            $anoToInsert = $request['ano'] ?? now()->subYear()->year; //ano do carro, se nao meterem por default sera do ano passado ? acho que é assim que funcionam.
             $anoToInsert = $request['ano'];
             //ver se posso meter 0 por default visto que foi acabado de ser adicionado
             $vezes_considerada_compraToInsert = $request['vezes_considerada_compra']?? 0 ;
@@ -78,14 +79,16 @@ class VeiculoController extends Controller
 
         public function edit(Veiculo $veiculo)
         {
-            return view('veiculos.edit', compact('veiculo'));
+            return view('veiculos.editar', compact('veiculo'));
         }
         public function update(Request $request, Veiculo $veiculo)
         {
             $request->validate([
                 'marca' => 'required',
                 'modelo' => 'required',
-                'matricula' => 'required|unique:veiculos,matricula|max:6',
+
+                //ele procura tabem este update
+                'matricula' => 'required|unique:veiculos,matricula,' . $veiculo->id . '|max:6',
                 'foi_comprado' => 'boolean',
                 'tipo_combustivel' => 'required|string|max:20',
                 'cor' => 'required|string|max:20',
