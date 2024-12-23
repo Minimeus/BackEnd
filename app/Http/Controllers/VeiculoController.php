@@ -21,7 +21,7 @@ class VeiculoController extends Controller
         }
 
         //criar um veiculo
-        public function create(){return view('veiculos.criar');}
+        public function create(){return view('veiculos.create');}
 
 
         //Reutilisando estudante
@@ -29,7 +29,7 @@ class VeiculoController extends Controller
         {
             $request->validate([
                 'marca' => 'required',
-                'modelo' => 'required',
+                'modelo' => 'required|min:4',
                 'matricula' => 'required|unique:veiculos|max:6',
                 'foi_comprado' => 'boolean',
                 'tipo_combustivel' => 'required|string|max:20',
@@ -77,9 +77,15 @@ class VeiculoController extends Controller
 
 
 
+         public function detalhe($id)
+         {        
+             return view('veiculos.detalhe', compact('veiculo', 'empregados'));
+         }
+
+
         public function edit(Veiculo $veiculo)
         {
-            return view('veiculos.editar', compact('veiculo'));
+            return view('veiculos.edit', compact('veiculo'));
         }
         public function update(Request $request, Veiculo $veiculo)
         {
@@ -98,6 +104,8 @@ class VeiculoController extends Controller
             $veiculo->update($request->all());
             return redirect()->route('veiculos.index')->with('success', 'Veiculo atualizado');
         }
+
+
         public function destroy(Veiculo $veiculo)
         {
             $veiculo->delete();

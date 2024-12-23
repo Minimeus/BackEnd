@@ -30,7 +30,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(185, 185, 185, 0.4);
         }
         .conteudo_pop-up {
             background-color: #fefefe;
@@ -38,7 +38,7 @@
             padding: 20px;
             border: 1px solid #888;
             width: 50%;
-            text-align: left;
+            text-align: center;
         }
         .fechar {
             color: #aaa;
@@ -57,17 +57,18 @@
             display: flex;
             justify-content: space-around;
         }
-        .editar, .destruir, .detalhe {
-            padding: 8px 12px;
+        .edit, .destroy, .detalhe {
+            padding: 8px 20px;
+            margin-top :10px; 
             cursor: pointer;
             color: white;
             border: none;
             border-radius: 5px;
         }
-        .editar {
+        .edit {
             background-color: #4CAF50;
         }
-        .destruir {
+        .destroy {
             background-color: #f44336;
         }
         .detalhe {
@@ -78,7 +79,7 @@
 <body>
     <h1>Lista de Veiculos</h1>
 
-    <form action="{{ route('veiculos.criar') }}" method="GET">
+    <form action="{{ route('veiculos.create') }}" method="GET">
         <button type="submit" class="botoes">Novo Veiculo</button>
     </form>
 
@@ -102,7 +103,7 @@
 
         <tbody>
             @foreach ($veiculos as $veiculo)
-            <tr  onclick="mostrarPopUp({{ $veiculo->id }})">
+            <tr  onclick="mostrarPopUp({{ $veiculo->id }} )">
                 <td>{{ $veiculo->marca }}</td>
                 <td>{{ $veiculo->modelo }}</td>
                 <td>{{ $veiculo->matricula }}</td>
@@ -116,7 +117,7 @@
     </table>
 
     @foreach ($veiculos as $veiculo)
-    <div id="popup-{{ $veiculo->id }}" class="popup">
+    <div class="popup"  id="popup-{{ $veiculo->id }}">
         <div class="conteudo_pop-up">
 
         <!-- Who knew ! https://www.w3schools.com/charsets/ref_html_entities_4.asp  -->
@@ -126,17 +127,17 @@
             <div class="botoes">
 
 
-                <form action="{{ route('veiculos.editar', $veiculo->id) }}" method="GET">
-                    <button type="submit" class="editar">Editar</button>
+                <form action="{{ route('veiculos.edit', $veiculo->id) }}" method="GET">
+                    <button type="submit" class="edit">Editar</button>
                 </form>
 
 
-                <form action="{{ route('veiculos.destruir', $veiculo->id) }}" method="POST">
+                <form action="{{ route('veiculos.destroy', $veiculo->id) }}" method="POST">
                     @method('DELETE')
-                    <button type="submit" class="destruir">Destruir</button>
+                    <button type="submit" class="destroy">Destruir</button>
                 </form>
 
-                <form action="{{ route('veiculos.mostrar', $veiculo->id) }}" method="GET">
+                <form action="{{ route('veiculos.detalhe', $veiculo->id) }}" method="GET">
                     <button type="submit" class="detalhe">Detalhe</button>
                 </form>
 

@@ -22,22 +22,23 @@ Route::get('/veiculos', [VeiculoController::class, 'index'])->name('veiculos.ind
 
 
 //Ecra de formulario
-Route::get('/veiculos/criar', [VeiculoController::class, 'create'])->name('veiculos.criar');
+Route::get('/veiculos/create', [VeiculoController::class, 'create'])->name('veiculos.create');
 // como em management students, adicionou um metodo para gravar o veiculo criado:
 Route::post('/veiculos', [VeiculoController::class, 'store'])->name('veiculos.store');
 //parar criar 10 automaticamente :
 Route::get('/seed-veiculos', [VeiculoController::class, 'seed'])->name('veiculos.seed');
 
 //editar o veiculo
-Route::get('/veiculos/{veiculo}/editar', [VeiculoController::class, 'editar'])->name('veiculos.editar');
+Route::get('/veiculos/{veiculo}/edit', [VeiculoController::class, 'edit'])->name('veiculos.edit');
 Route::put('/veiculos/{veiculo}', [VeiculoController::class, 'update'])->name('veiculos.update');
 
 // apagar o veiculo
-Route::delete('/veiculos/{veiculo}', [VeiculoController::class, 'destroy'])->name('veiculos.destruir');
+Route::delete('/veiculos/{veiculo}', [VeiculoController::class, 'destroy'])->name('veiculos.destroy');
 
 
-//Detalhes do veiculo
-Route::get('/veiculos/{id}', [VeiculoController::class, 'show'])->name('veiculos.mostrar');
+// Detalhes do veículo
+Route::get('/veiculos/{id}', [VeiculoController::class, 'detalhe'])->name('veiculos.detalhe');
+
 
 
 
